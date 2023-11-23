@@ -20,6 +20,7 @@ public class BankTest {
         SweBank.openAccount("Bob");
         Nordea.openAccount("Bob");
         DanskeBank.openAccount("Gertrud");
+        DanskeBank.openAccount("Alex");
     }
 
     @Test
@@ -67,6 +68,14 @@ public class BankTest {
         SweBank.transfer("Ulrika", Nordea, "Bob", transferAmount);
         assertEquals("should decrease money from the account after transfer", -100, (int) SweBank.getBalance("Ulrika"));
         assertEquals("should increase money from the account after transfer", 100, (int) Nordea.getBalance("Bob"));
+    }
+
+    @Test
+    public void testTransferOnTheSameBank() throws AccountDoesNotExistException {
+        Money transferAmount = new Money(100, SEK);
+        SweBank.transfer("Ulrika", "Bob", transferAmount);
+        assertEquals("should decrease money from the account after transfer", -100, (int) SweBank.getBalance("Ulrika"));
+        assertEquals("should increase money from the account after transfer", 100, (int) SweBank.getBalance("Bob"));
     }
 
     @Test

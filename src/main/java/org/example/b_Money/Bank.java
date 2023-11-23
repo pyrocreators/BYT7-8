@@ -124,7 +124,9 @@ public class Bank {
      * @throws AccountDoesNotExistException If one of the accounts do not exist
      */
     public void transfer(String fromaccount, String toaccount, Money amount) throws AccountDoesNotExistException {
-        transfer(fromaccount, this, fromaccount, amount);
+        // we cannot transfer from `fromaccount` to `fromaccount`, so changes to `toaccount`
+        // this was fixed and determined by failure of `testTransferOnTheSameBank` case
+        transfer(fromaccount, this, toaccount, amount);
     }
 
     /**
