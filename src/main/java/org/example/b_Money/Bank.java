@@ -46,6 +46,9 @@ public class Bank {
         if (accountlist.containsKey(accountid)) {
             throw new AccountExistsException();
         }
+        // previously we were just getting the account by accountlist.get(accountid);
+        // and was doing with this account nothing, so I fixed the issue by putting to the accountlist id and new account
+        // was determined by testOpenAccount, but at the end this leads to much more failures than only testOpenAccount
         Account newAccount = new Account(accountid, currency);
         accountlist.put(accountid, newAccount);
     }
@@ -58,6 +61,9 @@ public class Bank {
      * @throws AccountDoesNotExistException If the account does not exist
      */
     public void deposit(String accountid, Money money) throws AccountDoesNotExistException {
+        // here we had accountlist.containsKey(accountid) and basically we want to throw new error only in case if
+        // account list is empty.
+        // determined by testDeposit test case where we're testing depositing money from account.
         if (!accountlist.containsKey(accountid)) {
             throw new AccountDoesNotExistException();
         } else {
@@ -78,6 +84,9 @@ public class Bank {
             throw new AccountDoesNotExistException();
         } else {
             Account account = accountlist.get(accountid);
+            // we had account.deposit(money);,
+            // so in withdraw method we want to withdraw money, not deposit.
+            // determined by testWithdraw test case where are testing withdrawing money from account.
             account.withdraw(money);
         }
     }
