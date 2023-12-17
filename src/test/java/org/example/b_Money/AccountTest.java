@@ -22,7 +22,9 @@ public class AccountTest {
 
         SweBank.deposit("Alice", new Money(1000000, SEK));
     }
-
+    /**
+     * Tests the addition and removal of timed payments in the account.
+     */
     @Test
     public void testAddRemoveTimedPayment() {
         assertFalse("should not exists as it was not created yet", testAccount.timedPaymentExists("Payment1"));
@@ -33,7 +35,11 @@ public class AccountTest {
         testAccount.removeTimedPayment("Payment1");
         assertFalse("should not exist after removing", testAccount.timedPaymentExists("Payment1"));
     }
-
+    /**
+     * Tests the execution of timed payments after a certain number of ticks.
+     *
+     * @throws AccountDoesNotExistException if the account does not exist
+     */
     @Test
     public void testTimedPayment() throws AccountDoesNotExistException {
         testAccount.addTimedPayment("Payment2", 1, 0, new Money(100, SEK), SweBank, "Alice");
@@ -45,7 +51,9 @@ public class AccountTest {
         assertEquals("should equal to the expected amount", 9999700, (int) testAccount.getBalance().getAmount());
         assertEquals("should equal to the expected amount", 1000300, (int) SweBank.getBalance("Alice"));
     }
-
+    /**
+     * Tests the addition and withdrawal of funds in the account.
+     */
     @Test
     public void testAddWithdraw() {
         testAccount.deposit(new Money(50000, SEK));
@@ -54,7 +62,9 @@ public class AccountTest {
         testAccount.withdraw(new Money(20000, SEK));
         assertEquals("should decrease(withdraw) money from account", 10030000, (int) testAccount.getBalance().getAmount());
     }
-
+    /**
+     * Tests the retrieval of the current balance in the account.
+     */
     @Test
     public void testGetBalance() {
         assertEquals("should have the proper balance", 10000000, (int) testAccount.getBalance().getAmount());

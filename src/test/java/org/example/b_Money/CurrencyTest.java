@@ -14,34 +14,44 @@ public class CurrencyTest {
         PLN = new Currency("PLN", 0.65);
         EUR = new Currency("EUR", 1.5);
     }
-
+    /**
+     * Tests the retrieval of the name of the currency.
+     */
     @Test
     public void testGetName() {
         assertEquals("should return expected name USD", "USD", USD.getName());
         assertEquals("should return expected name PLN", "PLN", PLN.getName());
         assertEquals("should return expected name EUR", "EUR", EUR.getName());
     }
-
+    /**
+     * Tests the retrieval of the exchange rate for the currency.
+     */
     @Test
     public void testGetRate() {
         assertEquals("should return the assigned rate 1.25", Double.valueOf(1.25), USD.getRate());
         assertEquals("should return the assigned rate 0.65", Double.valueOf(0.65), PLN.getRate());
         assertEquals("should return the assigned rate 1.5", Double.valueOf(1.5), EUR.getRate());
     }
-
+    /**
+     * Tests the setting of a new exchange rate for the currency.
+     */
     @Test
     public void testSetRate() {
         USD.setRate(0.18);
         assertEquals("should return the new rate which was set by setter", Double.valueOf(0.18), USD.getRate());
     }
-
+    /**
+     * Tests the calculation of the universal value of an amount in the currency.
+     */
     @Test
     public void testGlobalValue() {
         assertEquals("should calculate correctly universal value", Integer.valueOf(12500), USD.universalValue(10000));
         assertEquals("should calculate correctly universal value", Integer.valueOf(9750), PLN.universalValue(15000));
         assertEquals("should calculate correctly universal value", Integer.valueOf(1500), EUR.universalValue(1000));
     }
-
+    /**
+     * Tests the conversion of an amount from another currency to this currency.
+     */
     @Test
     public void testValueInThisCurrency() {
         assertEquals("should return value in this currency", Integer.valueOf(42), USD.valueInThisCurrency(50, EUR));
@@ -50,5 +60,4 @@ public class CurrencyTest {
 
         assertEquals("should return value in this currency", Integer.valueOf(115), EUR.valueInThisCurrency(50, PLN));
     }
-
 }
